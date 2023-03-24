@@ -3,7 +3,21 @@ var express = require('express');
 var app = express();
 app.use(express.text())
 app.use(express.urlencoded({ extended: true }))
-const port = 80
+const port_HTTP = 80
+const port_HTTPS = 443
+const port_LOCAL = 3000
+
+var server_HTTP = app.listen(port_HTTP, () => {
+    console.log(`cxiv_fba HTTP listening on port ${port_HTTP}`)
+})
+
+var server_HTTPS = app.listen(port_HTTPS, () => {
+    console.log(`cxiv_fba HTTPS listening on port ${port_HTTPS}`)
+})
+
+var server_LOCAL = app.listen(port_LOCAL, () => {
+    console.log(`cxiv_fba LOCAL listening on port ${port_LOCAL}`)
+})
 
 var VARIABLES = {
     CLIENT_ID: "f010187a-625c-474a-b9c5-461445989809",
@@ -20,28 +34,31 @@ var URL_REQUEST = "";
 var HEADERS = { nothing: "nothing" };
 var DATA_R = { nothing: "nothing" };
 
-var server = app.listen(port, () => {
-    console.log(`cxiv_fba listening on port ${port}`)
+
+app.get('/', (req, res) => {
+    console.log("/hello ran")
+    res.setHeader('Content-Type', 'application/json');
+    res.send("nothing to see here - just a root")
+    res.end();
 })
 
 app.get('/hello', (req, res) => {
     console.log("/hello ran")
-    res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Content-Type', 'application/json');
     res.send("cxiv_fba is up and running")
     res.end();
 })
 
-app.post('/goodbye', (req, res) => {
-    console.log("/goodbye ran")
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.send("end session");
-    server.close();
+app.get('/testme', (req, res) => {
+    console.log("/hello ran")
+    res.setHeader('Content-Type', 'application/json');
+    res.send("we're all good - get on testing")
+    res.end();
 })
+
 
 app.post('/begin_auth', (req, res) => {
     console.log("/begin_auth ran")
-    res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Content-Type', 'application/json');
     res.json({
         redirect:
@@ -76,8 +93,6 @@ app.post('/accept_code', (req, res) => {
             console.log(VARIABLES.AUTHORIZATION)
         })
 
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Headers', '*');
     res.setHeader('Content-Type', 'application/json');
     res.json({ this_is_just_what_was_sent: { requestBody: req.body } })
     res.end();
@@ -87,8 +102,6 @@ app.get('/company', (req, res) => {
     console.log("/company ran")
     api_finch('/employer/company', 'GET', 'null')
         .then((response) => {
-            res.setHeader('Access-Control-Allow-Origin', '*');
-            res.setHeader('Access-Control-Allow-Headers', '*');
             res.setHeader('Content-Type', 'application/json');
             res.json(response)
             res.end();
@@ -101,8 +114,6 @@ app.get('/directory', (req, res) => {
 
     api_finch('/employer/directory', 'GET', 'null')
         .then((response) => {
-            res.setHeader('Access-Control-Allow-Origin', '*');
-            res.setHeader('Access-Control-Allow-Headers', '*');
             res.setHeader('Content-Type', 'application/json');
             res.json(response)
             res.end();
@@ -124,8 +135,6 @@ app.post('/employer_individual', (req, res) => {
 
     api_finch('/employer/individual', 'POST', data)
         .then((response) => {
-            res.setHeader('Access-Control-Allow-Origin', '*');
-            res.setHeader('Access-Control-Allow-Headers', '*');
             res.setHeader('Content-Type', 'application/json');
             res.json(response)
             res.end();
@@ -147,8 +156,6 @@ app.post('/employer_employment', (req, res) => {
 
     api_finch('/employer/employment', 'POST', data)
         .then((response) => {
-            res.setHeader('Access-Control-Allow-Origin', '*');
-            res.setHeader('Access-Control-Allow-Headers', '*');
             res.setHeader('Content-Type', 'application/json');
             res.json(response)
             res.end();
