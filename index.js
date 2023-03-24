@@ -3,7 +3,7 @@ var express = require('express');
 var app = express();
 app.use(express.text())
 app.use(express.urlencoded({ extended: true }))
-const port = 3000
+const port = 443
 
 var VARIABLES = {
     CLIENT_ID: "f010187a-625c-474a-b9c5-461445989809",
