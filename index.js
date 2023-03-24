@@ -35,10 +35,32 @@ var HEADERS = { nothing: "nothing" };
 var DATA_R = { nothing: "nothing" };
 
 
+
 app.get('/', (req, res) => {
-    console.log("/hello ran")
+    console.log("/root request just ran")
     res.setHeader('Content-Type', 'application/json');
     res.send("nothing to see here - just a root")
+    res.end();
+})
+
+app.get('/three_thousand', (req, res) => {
+    console.log("/three_thousand ran")
+    res.setHeader('Content-Type', 'application/json');
+    res.send("you just hit an endpoint to test the 3000 port")
+    res.end();
+})
+
+app.get('/eighty', (req, res) => {
+    console.log("/eighty ran")
+    res.setHeader('Content-Type', 'application/json');
+    res.send("you just hit an endpoint to test the 80 port")
+    res.end();
+})
+
+app.get('/four_four_three', (req, res) => {
+    console.log("/four_four_three ran")
+    res.setHeader('Content-Type', 'application/json');
+    res.send("you just hit an endpoint to test the 443 port")
     res.end();
 })
 
@@ -50,7 +72,7 @@ app.get('/hello', (req, res) => {
 })
 
 app.get('/testme', (req, res) => {
-    console.log("/hello ran")
+    console.log("/testme ran")
     res.setHeader('Content-Type', 'application/json');
     res.send("we're all good - get on testing")
     res.end();
