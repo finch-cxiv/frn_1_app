@@ -38,6 +38,7 @@ var DATA_R = { nothing: "nothing" };
 
 app.get('/', (req, res) => {
     console.log("/root request just ran")
+    res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Content-Type', 'application/json');
     res.send("nothing to see here - just a root")
     res.end();
@@ -45,6 +46,7 @@ app.get('/', (req, res) => {
 
 app.get('/three_thousand', (req, res) => {
     console.log("/three_thousand ran")
+    res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Content-Type', 'application/json');
     res.send("you just hit an endpoint to test the 3000 port")
     res.end();
@@ -52,6 +54,7 @@ app.get('/three_thousand', (req, res) => {
 
 app.get('/eighty', (req, res) => {
     console.log("/eighty ran")
+    res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Content-Type', 'application/json');
     res.send("you just hit an endpoint to test the 80 port")
     res.end();
@@ -59,6 +62,7 @@ app.get('/eighty', (req, res) => {
 
 app.get('/four_four_three', (req, res) => {
     console.log("/four_four_three ran")
+    res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Content-Type', 'application/json');
     res.send("you just hit an endpoint to test the 443 port")
     res.end();
@@ -66,6 +70,7 @@ app.get('/four_four_three', (req, res) => {
 
 app.get('/hello', (req, res) => {
     console.log("/hello ran")
+    res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Content-Type', 'application/json');
     res.send("cxiv_fba is up and running")
     res.end();
@@ -73,6 +78,7 @@ app.get('/hello', (req, res) => {
 
 app.get('/testme', (req, res) => {
     console.log("/testme ran")
+    res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Content-Type', 'application/json');
     res.send("we're all good - get on testing")
     res.end();
@@ -81,6 +87,7 @@ app.get('/testme', (req, res) => {
 
 app.post('/begin_auth', (req, res) => {
     console.log("/begin_auth ran")
+    res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Content-Type', 'application/json');
     res.json({
         redirect:
@@ -116,6 +123,7 @@ app.post('/accept_code', (req, res) => {
         })
 
     res.setHeader('Content-Type', 'application/json');
+    res.setHeader('Access-Control-Allow-Origin', '*');
     res.json({ this_is_just_what_was_sent: { requestBody: req.body } })
     res.end();
 })
@@ -125,6 +133,7 @@ app.get('/company', (req, res) => {
     api_finch('/employer/company', 'GET', 'null')
         .then((response) => {
             res.setHeader('Content-Type', 'application/json');
+            res.setHeader('Access-Control-Allow-Origin', '*');
             res.json(response)
             res.end();
         })
@@ -137,6 +146,7 @@ app.get('/directory', (req, res) => {
     api_finch('/employer/directory', 'GET', 'null')
         .then((response) => {
             res.setHeader('Content-Type', 'application/json');
+            res.setHeader('Access-Control-Allow-Origin', '*');
             res.json(response)
             res.end();
         })
@@ -158,6 +168,7 @@ app.post('/employer_individual', (req, res) => {
     api_finch('/employer/individual', 'POST', data)
         .then((response) => {
             res.setHeader('Content-Type', 'application/json');
+            res.setHeader('Access-Control-Allow-Origin', '*');
             res.json(response)
             res.end();
         })
@@ -179,6 +190,7 @@ app.post('/employer_employment', (req, res) => {
     api_finch('/employer/employment', 'POST', data)
         .then((response) => {
             res.setHeader('Content-Type', 'application/json');
+            res.setHeader('Access-Control-Allow-Origin', '*');
             res.json(response)
             res.end();
         })
