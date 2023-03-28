@@ -1,8 +1,10 @@
 const fetch = require("node-fetch");
 var express = require('express');
+var cors = require('cors');
 var app = express();
 app.use(express.text())
 app.use(express.urlencoded({ extended: true }))
+app.use(cors());
 const port_HTTP = 80
 const port_HTTPS = 443
 const port_LOCAL = 3000
