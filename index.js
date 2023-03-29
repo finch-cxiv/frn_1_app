@@ -9,14 +9,6 @@ app.use(cors());
 app.use(bodyParser.json());
 const port_LOCAL = 3000
 
-var server_HTTP = app.listen(port_HTTP, () => {
-    console.log(`cxiv_fba HTTP listening on port ${port_HTTP}`)
-})
-
-var server_HTTPS = app.listen(port_HTTPS, () => {
-    console.log(`cxiv_fba HTTPS listening on port ${port_HTTPS}`)
-})
-
 var server_LOCAL = app.listen(port_LOCAL, () => {
     console.log(`cxiv_fba LOCAL listening on port ${port_LOCAL}`)
 })
