@@ -1,10 +1,12 @@
 const fetch = require("node-fetch");
 var express = require('express');
 var cors = require('cors');
+var bodyParser = require('body-parser');
 var app = express();
 app.use(express.text())
 app.use(express.urlencoded({ extended: true }))
 app.use(cors());
+app.use(bodyParser.json());
 const port_HTTP = 80
 const port_HTTPS = 443
 const port_LOCAL = 3000
@@ -35,8 +37,6 @@ var VARIABLES = {
 var URL_REQUEST = "";
 var HEADERS = { nothing: "nothing" };
 var DATA_R = { nothing: "nothing" };
-
-
 
 app.get('/', (req, res) => {
     console.log("/root request just ran")
@@ -85,7 +85,6 @@ app.get('/testme', (req, res) => {
     res.send("we're all good - get on testing")
     res.end();
 })
-
 
 app.post('/begin_auth', (req, res) => {
     console.log("/begin_auth ran")
@@ -199,10 +198,35 @@ app.post('/employer_employment', (req, res) => {
 
 })
 
-async function api_finch(resource, method, data) {
+app.post('/payment', (req, res) => {
+    console.log("payment ran")
+    query = req.body
+    console.log(URL_REQUEST)
+    api_finch('/employer/payment?', 'GET', null, query)
+    .then((response) => {
+        res.setHeader('Content-Type', 'application/json');
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.json(response)
+        res.end();
+    })
+})
 
-    URL_REQUEST = VARIABLES.URL_FINCH + resource
+app.post('/pay-statement', (req, res) => {
+    console.log("pay-statement ran")
+    pay_id = req.body
+    api_finch('/employer/pay-statement', 'POST', pay_id)
+    .then((response) => {
+        res.setHeader('Content-Type', 'application/json');
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.json(response)
+        res.end();
+    })
+})
 
+
+async function api_finch(resource, method, data, params) {
+    URL_REQUEST = VARIABLES.URL_FINCH + resource + new URLSearchParams(params).toString()
+    console.log(URL_REQUEST)
     if (resource === '/auth/token') {
         HEADERS = {
             'Content-Type': 'application/json'
