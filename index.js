@@ -7,8 +7,6 @@ app.use(express.text())
 app.use(express.urlencoded({ extended: true }))
 app.use(cors());
 app.use(bodyParser.json());
-const port_HTTP = 80
-const port_HTTPS = 443
 const port_LOCAL = 3000
 
 var server_HTTP = app.listen(port_HTTP, () => {
